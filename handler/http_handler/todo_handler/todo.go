@@ -30,3 +30,13 @@ func (t *todoHandler) CreateTodo(ctx *gin.Context) {
 
 	ctx.JSON(todo.StatusCode, todo)
 }
+
+func (t *todoHandler) GetAllTodo(ctx *gin.Context) {
+	listTodo, err := t.todoService.GetAllTodo()
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, err)
+		return
+	}
+
+	ctx.JSON(listTodo.StatusCode, listTodo)
+}

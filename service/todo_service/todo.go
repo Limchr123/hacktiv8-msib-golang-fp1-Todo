@@ -37,3 +37,29 @@ func (t *todoService) CreateTodo(payload *dto.TodoRequest) (*dto.NewTodoResponse
 
 	return response, nil
 }
+
+func (t *todoService) GetAllTodo() (*dto.GetAllTodoResponse, errs.MessageErr) {
+	listTodo, err := t.todoRepo.GetAllTodo()
+	if err != nil {
+		return nil, errs.NewNotFound("Error occurred while trying to get data")
+	}
+	list := []dto.Todo{}
+
+	for _, todo := range listTodo {
+		list = append(list, dto.Todo{
+			ID:        todo.ID,
+			Title:     todo.Title,
+			Completed: todo.Completed,
+			CreatedAt: todo.CreatedAt,
+			UpdatedAt: todo.UpdatedAt,
+		})
+	}
+
+	response := &dto.GetAllTodoResponse{
+		StatusCode: http.StatusOK,
+		Message:    "Succes",
+		Data:       list,
+	}
+
+	return response, nil
+}

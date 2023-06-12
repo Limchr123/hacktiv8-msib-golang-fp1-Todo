@@ -18,6 +18,7 @@ func StartApp() {
 	r := gin.Default()
 
 	r.POST("/todos", todoHandler.CreateTodo)
+	r.GET("/todos", todoHandler.GetAllTodo)
 
 	r.Run(":8080")
 }

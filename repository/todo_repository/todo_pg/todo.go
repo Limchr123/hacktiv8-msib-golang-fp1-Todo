@@ -21,3 +21,13 @@ func (t *todoPg) CreateTodo(todoPayload *entity.Todo) (*entity.Todo, errs.Messag
 	}
 	return todoPayload, nil
 }
+
+func (t *todoPg) GetAllTodo() ([]entity.Todo, errs.MessageErr) {
+	var todos []entity.Todo
+
+	if err := t.db.Find(&todos).Error; err != nil {
+		return nil, errs.NewInternalServerError("Error occurred while trying to get data")
+	}
+
+	return todos, nil
+}
