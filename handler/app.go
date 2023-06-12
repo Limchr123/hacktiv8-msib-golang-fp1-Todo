@@ -20,6 +20,7 @@ func StartApp() {
 	r.POST("/todos", todoHandler.CreateTodo)
 	r.GET("/todos", todoHandler.GetAllTodo)
 	r.GET("/todos/:id", todoHandler.GetTodoById)
+	r.PUT("/todos/:id", todoHandler.UpdateTodoById)
 
 	r.Run(":8080")
 }

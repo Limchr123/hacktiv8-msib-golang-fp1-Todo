@@ -40,3 +40,16 @@ func (t *todoPg) GetTodoById(id uint) (*entity.Todo, errs.MessageErr) {
 
 	return &todo, nil
 }
+
+func (t *todoPg) UpdateTodoById(id uint, todoPayload *entity.Todo) (*entity.Todo, errs.MessageErr) {
+	todo, err := t.GetTodoById(id)
+	if err != nil {
+		return nil, errs.NewNotFound("Error occurred while trying to find data")
+	}
+
+	if err := t.db.Model(todo).Updates(todoPayload).Error; err != nil {
+		return nil, errs.NewInternalServerError("Error occurred while trying update data")
+	}
+
+	return todo, nil
+}

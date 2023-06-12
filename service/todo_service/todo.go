@@ -84,3 +84,24 @@ func (t *todoService) GetTodoById(id uint) (*dto.GetTodoByIdResponse, errs.Messa
 
 	return response, nil
 }
+
+func (t *todoService) UpdateTodoById(id uint, payload *dto.TodoRequest) (*dto.UpdateTodoByIdResponse, errs.MessageErr) {
+	todoPayload := payload.TodoRequestToEntity()
+	todo, err := t.todoRepo.UpdateTodoById(id, todoPayload)
+	if err != nil {
+		return nil, errs.NewNotFound("Error occurred while trying to find data")
+	}
+	response := &dto.UpdateTodoByIdResponse{
+		StatusCode: http.StatusOK,
+		Message:    "Success",
+		Data: dto.Todo{
+			ID:        todo.ID,
+			Title:     todo.Title,
+			Completed: todo.Completed,
+			CreatedAt: todo.CreatedAt,
+			UpdatedAt: todo.UpdatedAt,
+		},
+	}
+
+	return response, nil
+}
