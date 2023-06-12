@@ -74,3 +74,20 @@ func (t *todoHandler) UpdateTodoById(ctx *gin.Context) {
 
 	ctx.JSON(todo.StatusCode, todo)
 }
+
+func (t *todoHandler) DeleteTodoById(ctx *gin.Context) {
+	id := ctx.Param("id")
+	todoId, err := strconv.Atoi(id)
+
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, err)
+	}
+
+	todo, err := t.todoService.DeleteTodoById(uint(todoId))
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, err)
+	}
+
+	ctx.JSON(todo.StatusCode, todo)
+}

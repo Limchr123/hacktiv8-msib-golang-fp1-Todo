@@ -53,3 +53,16 @@ func (t *todoPg) UpdateTodoById(id uint, todoPayload *entity.Todo) (*entity.Todo
 
 	return todo, nil
 }
+
+func (t *todoPg) DeleteTodoById(id uint) errs.MessageErr {
+	todo, err := t.GetTodoById(id)
+	if err != nil {
+		return errs.NewNotFound("Error occurred while trying to find data")
+	}
+
+	if err := t.db.Delete(todo).Error; err != nil {
+		return errs.NewInternalServerError("Error occurred while trying to delete data")
+	}
+
+	return nil
+}

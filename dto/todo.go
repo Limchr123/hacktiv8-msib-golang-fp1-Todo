@@ -53,3 +53,8 @@ type UpdateTodoByIdResponse struct {
 	Message    string `json:"message"`
 	Data       Todo   `json:"data"`
 }
+
+type DeleteTodoByIdResponse struct {
+	StatusCode int    `json:"statusCode"`
+	Message    string `json:"message"`
+}

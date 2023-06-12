@@ -10,4 +10,5 @@ type TodoRepository interface {
 	GetAllTodo() ([]entity.Todo, errs.MessageErr)
 	GetTodoById(id uint) (*entity.Todo, errs.MessageErr)
 	UpdateTodoById(id uint, todoPayload *entity.Todo) (*entity.Todo, errs.MessageErr)
+	DeleteTodoById(id uint) errs.MessageErr
 }

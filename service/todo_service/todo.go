@@ -105,3 +105,16 @@ func (t *todoService) UpdateTodoById(id uint, payload *dto.TodoRequest) (*dto.Up
 
 	return response, nil
 }
+
+func (t *todoService) DeleteTodoById(id uint) (*dto.DeleteTodoByIdResponse, errs.MessageErr) {
+	if err := t.todoRepo.DeleteTodoById(id); err != nil {
+		return nil, errs.NewInternalServerError("Error occurred while trying to delete")
+	}
+
+	response := &dto.DeleteTodoByIdResponse{
+		StatusCode: http.StatusOK,
+		Message:    "Success",
+	}
+
+	return response, nil
+}
