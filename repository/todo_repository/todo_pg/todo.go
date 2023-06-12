@@ -31,3 +31,12 @@ func (t *todoPg) GetAllTodo() ([]entity.Todo, errs.MessageErr) {
 
 	return todos, nil
 }
+
+func (t *todoPg) GetTodoById(id uint) (*entity.Todo, errs.MessageErr) {
+	var todo entity.Todo
+	if err := t.db.First(&todo, id).Error; err != nil {
+		return nil, errs.NewInternalServerError("Error occurred while trying to find data")
+	}
+
+	return &todo, nil
+}

@@ -3,6 +3,7 @@ package todo_handler
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 	"todo/dto"
 	"todo/service"
 )
@@ -39,4 +40,19 @@ func (t *todoHandler) GetAllTodo(ctx *gin.Context) {
 	}
 
 	ctx.JSON(listTodo.StatusCode, listTodo)
+}
+
+func (t *todoHandler) GetTodoById(ctx *gin.Context) {
+	id := ctx.Param("id")
+	todoId, err := strconv.Atoi(id)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, err)
+	}
+
+	todo, err := t.todoService.GetTodoById(uint(todoId))
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, err)
+	}
+
+	ctx.JSON(todo.StatusCode, todo)
 }

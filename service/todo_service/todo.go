@@ -63,3 +63,24 @@ func (t *todoService) GetAllTodo() (*dto.GetAllTodoResponse, errs.MessageErr) {
 
 	return response, nil
 }
+
+func (t *todoService) GetTodoById(id uint) (*dto.GetTodoByIdResponse, errs.MessageErr) {
+	todo, err := t.todoRepo.GetTodoById(id)
+	if err != nil {
+		return nil, errs.NewBadRequest("Error occurred while trying to get item")
+	}
+
+	response := &dto.GetTodoByIdResponse{
+		StatusCode: http.StatusOK,
+		Message:    "Succes",
+		Data: dto.Todo{
+			ID:        todo.ID,
+			Title:     todo.Title,
+			Completed: todo.Completed,
+			CreatedAt: todo.CreatedAt,
+			UpdatedAt: todo.UpdatedAt,
+		},
+	}
+
+	return response, nil
+}
