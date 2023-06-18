@@ -29,5 +29,5 @@ func StartApp() {
 	r.DELETE("/todos/:id", todoHandler.DeleteTodoById)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	r.Run(":", port)
+	r.Run(":" + port)
 }
