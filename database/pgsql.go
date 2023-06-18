@@ -21,11 +21,11 @@ func init() {
 	}
 
 	var (
-		host     = os.Getenv("DB_HOST")
-		port     = os.Getenv("DB_PORT")
-		dbname   = os.Getenv("DB_NAME")
-		user     = os.Getenv("DB_USER")
-		password = os.Getenv("DB_PASSWORD")
+		host     = os.Getenv("PGHOST")
+		port     = os.Getenv("PGUSER")
+		dbname   = os.Getenv("PGDATABASE")
+		user     = os.Getenv("PGUSER")
+		password = os.Getenv("PGPASSWORD")
 	)
 
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",

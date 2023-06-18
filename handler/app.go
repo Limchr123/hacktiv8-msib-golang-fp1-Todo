@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"os"
 	"todo/database"
 	_ "todo/docs"
 	"todo/handler/http_handler/todo_handler"
@@ -12,6 +13,7 @@ import (
 )
 
 func StartApp() {
+	var port = os.Getenv("PORT")
 	db := database.GetDataBaseInstance()
 
 	todoRepo := todo_pg.NewTodoPG(db)
@@ -26,5 +28,6 @@ func StartApp() {
 	r.PUT("/todos/:id", todoHandler.UpdateTodoById)
 	r.DELETE("/todos/:id", todoHandler.DeleteTodoById)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	r.Run(":8080")
+
+	r.Run(":", port)
 }
