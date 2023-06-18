@@ -17,7 +17,7 @@ var (
 func init() {
 	var (
 		host     = os.Getenv("PGHOST")
-		port     = os.Getenv("PGUSER")
+		port     = os.Getenv("PGPORT")
 		dbname   = os.Getenv("PGDATABASE")
 		user     = os.Getenv("PGUSER")
 		password = os.Getenv("PGPASSWORD")
