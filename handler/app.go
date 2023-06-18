@@ -2,7 +2,10 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"todo/database"
+	_ "todo/docs"
 	"todo/handler/http_handler/todo_handler"
 	"todo/repository/todo_repository/todo_pg"
 	"todo/service/todo_service"
@@ -22,6 +25,6 @@ func StartApp() {
 	r.GET("/todos/:id", todoHandler.GetTodoById)
 	r.PUT("/todos/:id", todoHandler.UpdateTodoById)
 	r.DELETE("/todos/:id", todoHandler.DeleteTodoById)
-
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.Run(":8080")
 }
