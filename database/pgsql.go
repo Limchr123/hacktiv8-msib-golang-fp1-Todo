@@ -2,7 +2,6 @@ package database
 
 import (
 	"fmt"
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
@@ -16,10 +15,6 @@ var (
 )
 
 func init() {
-	if env := godotenv.Load(); env != nil {
-		log.Panic("Error occurred while trying to read environment file", env)
-	}
-
 	var (
 		host     = os.Getenv("PGHOST")
 		port     = os.Getenv("PGUSER")
